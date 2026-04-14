@@ -1,28 +1,45 @@
 export default function(){
     const projects = []; // project must doesn't have undefined
 
-    // not duplicate project name
-    const addProject = (projectsName) => {
-        if (projects.find(ob => ob.project === projectsName))
-            return; // Duplicate name error
-        projects.push({project: projectsName, todos: []});
+    // undefined if not found and ob if contrast
+    const findProject = (projectName) => {
+        const project = projects.find(ob => ob.project === projectName);
+        return project; 
     }
 
-    // able to duplicate todo name
-    const addTodo = (projectsName, todoName) => {
-        const project = projects.find(ob => ob.project === projectsName);
+    // undefined if not found and ob if contrast
+    const findTodo = (projectName, todoName) => {
+        const project = findProject(projectName);
+        if (project === undefined) return;
+        const todo = project.todos.find(ob => ob.todo === todoName);
+        return todo; 
+    }
+
+    // not able duplicate project name
+    const addProject = (projectName) => {
+        //duplicate project name case
+        if (findProject(projectName) !== undefined) return;
+        projects.push({project: projectName, todos: []});
+    }
+
+    // not be able to duplicate todo name
+    const addTodo = (projectName, todoName) => {
+        const project = findProject(projectName);
         if (project === undefined) 
             return; // Project with projectName isn't be found
+        if (findTodo(projectName, todoName) !== undefined){
+            return; // duplicate todo
+        }
         project.todos.push({todo: todoName, tasks: []});
     }
 
     // able to duplicate task
     const addTask = (projectName, todoName, task) => {
-        const project = projects.find(ob => ob.project === projectName);
+        const project = findProject(projectName);
         if (project === undefined){
             return;// Project with projectName isn't be found
         }
-        const todo = project.todos.find(ob => ob.todo === todoName);
+        const todo = findTodo(projectName, todoName);
         if (todo === undefined){
             return;//todo with todoName isn't be found
         }
@@ -38,3 +55,5 @@ export default function(){
         getprojects,
     }
 }
+
+// write existed project and existed tode
