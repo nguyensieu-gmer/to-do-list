@@ -1,5 +1,5 @@
 export default function(){
-    const projects = []; // project must doesn't have undefined
+    let projects = []; // project must doesn't have undefined
 
     // undefined if not found and ob if contrast
     const findProject = (projectName) => {
@@ -13,6 +13,20 @@ export default function(){
         if (project === undefined) return;
         const todo = project.todos.find(ob => ob.todo === todoName);
         return todo; 
+    }
+
+    const renameProject = (projectName, newProjectName) => {
+        const targetProject = findProject(projectName);
+        if (targetProject === undefined) 
+            return; // projectName not be found
+        targetProject.project = newProjectName;
+    }
+
+    const renameTodo = (projectName, todoName, newTodoName) => {
+        const targetTodo = findTodo(projectName, todoName);
+        if (targetTodo === undefined)
+            return; // todoName not be found
+        targetTodo.todo = newTodoName;
     }
 
     // not able duplicate project name
@@ -46,14 +60,54 @@ export default function(){
         todo.tasks.push(task);
     }
 
-    const getprojects = () => projects;
+    const findTaskById = (projectName, todoName, taskId) => {
+        const todo = findTodo(projectName, todoName);
+        if (!todo) return; // not found todo
+        return todo.tasks.find(item => item.id === taskId);
+    }
 
-    return {
-        addProject,
+    const modifyTask = (task, title, description, dueDate, priority, notes, checkList) => {
+        if (!task) return;
+        let newData = {
+            title,
+            description,
+            dueDate,
+            priority,
+            notes,
+            checkList
+        };
+        Object.assign(task, newData);
+    }
+
+    const deleteProject = (projectName) => {
+        projects = projects.filter(item => item.project !== projectName);
+    }
+
+    const deleteTodo = (projectName, todoName) => {
+        let project = findProject(projectName);
+        if (!project) return;
+        project.todos = project.todos.filter(item => item.todo !== todoName);
+    }
+
+    const deleteTask = (projectName, todoName, taskId) => {
+        let todo = findTodo(projectName, todoName);
+        if (!todo) return;
+        todo.tasks = todo.tasks.filter(item => item.id !== taskId);
+    }
+    
+    const getprojects = () => JSON.parse(JSON.stringify(projects));
+
+    return{
+        getprojects,
+        renameProject,
+        renameTodo,
+        addProject, 
         addTodo,
         addTask,
-        getprojects,
+        findTaskById,
+        modifyTask,
+        deleteProject,
+        deleteTodo,
+        deleteTask,
     }
 }
-
-// write existed project and existed tode

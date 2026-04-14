@@ -1,11 +1,11 @@
 export const makeTask = (title, description, dueDate, priority, notes, checkList) => {
     return {
         id: crypto.randomUUID(),
-        title,
+        title, 
         description,
         dueDate,
         priority,
         notes,
-        checkList,
-    };
+        checkList
+    }
 }
