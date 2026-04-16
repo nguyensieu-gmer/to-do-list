@@ -246,6 +246,7 @@ li{
 
 /* check box */
 input[type="checkbox"] {
+  --color-accent: #e344329d;
   -webkit-appearance: none;
   appearance: none;
 
@@ -274,4 +275,38 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
   transform: translate(-50%, -50%) scale(1);
+}
+
+.add_todo{
+  --color-accent: #e34432b2;
+  color: var(--color-accent);
+  font-size: var(--h1-font-size);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.add_todo:hover{
+  color: var(--color-accent-hover);
+  cursor: pointer;
+}
+
+.add_todo i{
+  font-size: var(--bigger-font-size);
+}
+
+.btn{
+  border: none;
+  background-color: inherit;
+  color: var(--color-text-secondary);
+}
+
+.btn i{
+  --color-container-light-blue: #13d973;
+  color: var(--color-container-light-blue);
+}
+
+.title{
+  font-size: var(--h1-font-size);
+  font-weight: 500;
 }
