@@ -3,9 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>to-do-list</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="sidebar">
+            <div class="default">
+                <div class="user">
+                    <div>
+                        <i class="ri-user-3-fill"></i>
+                        <span>Nguyen Sieu</span>
+                    </div>
+                    <i class="ri-notification-3-line"></i>
+                </div>
+                <div class="sidebar_item"><i class="ri-poker-hearts-fill"></i><a href="#" id="priority">priority</a></div>
+                <div class="sidebar_item"><i class="ri-task-line"></i><a href="#" id="today">today</a></div>
+                <div class="sidebar_item"><i class="ri-task-line"></i><a href="#" id="tomorow">tomorow</a></div>
+                <div id="projects">
+                    <div id="Add_project">
+                        <i class="ri-add-circle-fill"></i>
+                        <a href="#">Add project</a>
+                    </div>
+                    <div class="sidebar_item"><i class="ri-task-line"></i><a href="#">project 1</a></div>
+                    <div class="sidebar_item"><i class="ri-task-line"></i><a href="#">project 2</a></div>
+                    <div class="sidebar_item"><i class="ri-task-line"></i><a href="#">project 3</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div>
+                <h1>project name</h1>
+                <i class="ri-more-fill"></i>
+            </div>
+            <div>
+                <h3>todo name</h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <p>title</p>
+                        <p>time</p>
+                        <i class="ri-poker-hearts-fill"></i>
+                        <a href="">edit<i class="ri-hashtag"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,54 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-/*
-  Josh's Custom CSS Reset
-  https://www.joshwcomeau.com/css/custom-css-reset/
-*/
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-*:not(dialog) {
-  margin: 0;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
-  }
-}
-
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
-}
-
-input, button, textarea, select {
-  font: inherit;
-}
-
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-}
-
-p {
-  text-wrap: pretty;
-}
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
-}
-
-#root, #__next {
-  isolation: isolate;
-}
-
 :root {
   --color-background: rgba(37 34 30 / .07);   
   --color-container-light-blue: #ebf5f0;   
@@ -75,4 +27,152 @@ h1, h2, h3, h4, h5, h6 {
   --font-regular: 400;
   --font-semi-bold: 600;
   --font-bold: 700;
+}
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+*:not(dialog) {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--body-font);
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+div{
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+h1{
+  font-size: var(--h1-font-size);
+}
+
+h2{
+  font-size: var(--h2-font-size);
+}
+
+h3{
+  font-size: var(--h3-font-size);
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+/* container */
+
+.container{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.sidebar{
+  --color-text-secondary: rgba(37, 34, 30, 0.932);
+  --color-background: #fff2eca5;
+  --font-regular: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: var(--font-regular);
+  color: var(--color-text-secondary);
+  background-color: var(--color-background);
+  font-size: var(--h2-font-size);
+}
+
+.user{
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.user i{
+  font-size: var(--h1-font-size);
+}
+
+.default{
+  width: 90%;
+}
+
+.default .sidebar_item{
+  --color-accent: #e3443235;
+  display: flex;
+  gap: .9rem;
+  padding: 0.4rem;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.default .sidebar_item:hover{
+  background-color: var(--color-accent);
+  color: #e34432;
+}
+
+.sidebar h1,
+.sidebar h2,
+.sidebar h3{
+  font-weight: var(--font-semi-bold);
+}
+
+#Add_project{
+  margin: 1rem 0;
+  font-size: var(--h1-font-size);
+  color: var(--color-accent);
+  transition: 0.2s ease;
+  padding: .4rem;
+  border-radius: 10px;
+}
+
+#Add_project:hover{
+  background-color: #e3443235;
+}
+
+/* content */
+.content{
+  --color-background: white;   
+  background-color: var(--color-background);
 }
