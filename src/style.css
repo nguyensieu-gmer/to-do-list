@@ -100,6 +100,15 @@ a{
   color: inherit;
 }
 
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  list-style-type: none;
+}
+
 /* container */
 
 .container{
@@ -162,6 +171,7 @@ a{
   margin: 1rem 0;
   font-size: var(--h1-font-size);
   color: var(--color-accent);
+  align-items: center;
   transition: 0.2s ease;
   padding: .4rem;
   border-radius: 10px;
@@ -172,7 +182,97 @@ a{
 }
 
 /* content */
+
 .content{
   --color-background: white;   
   background-color: var(--color-background);
+  padding: 0rem 4rem;
+}
+
+#project_name{
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+#project_name i{
+  font-size: var(--bigger-font-size);
+}
+
+.todo_name{
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.todo_name h2{
+  font-weight: 600;
+}
+
+.todo_name i{
+  font-size: var(--h2-font-size);
+}
+
+.task {
+  --normal-font-size: 1.2rem;
+  display: flex;
+  height: 6rem;
+  font-size: var(--normal-font-size);
+  border-top: 1px solid #a1a1a1;
+  font-weight: ;
+  padding: 1rem 0;
+}
+
+.third{
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.third a{
+  color: var(--color-text-secondary);
+}
+
+.first{
+  padding-right: 1.5rem;
+}
+
+.second{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* check box */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1.5px solid rgb(123, 123, 123);
+  border-radius: 50%; /* vòng ngoài tròn */
+  position: relative;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 1.2rem;
+  height: 1.2rem;
+  background: var(--color-accent);
+  border-radius: 50%; /* 🔥 chấm bên trong tròn */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: translate(-50%, -50%) scale(1);
 }
