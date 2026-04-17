@@ -280,6 +280,8 @@ input[type="checkbox"]:checked::before {
 .add_todo{
   --color-accent: #e34432b2;
   color: var(--color-accent);
+  border: none;
+  background-color: inherit;
   font-size: var(--h1-font-size);
   display: flex;
   align-items: center;
