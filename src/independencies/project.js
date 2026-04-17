@@ -66,14 +66,14 @@ export default function(){
         return todo.tasks.find(item => item.id === taskId);
     }
 
-    const modifyTask = (task, title, description, dueDate, priority, notes, checkList) => {
+    const modifyTask = (task, title, dueDate, priority, checkList) => {
         if (!task) return;
         let newData = {
             title,
-            description,
+            // description,
             dueDate,
             priority,
-            notes,
+            // notes,
             checkList
         };
         Object.assign(task, newData);

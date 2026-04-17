@@ -310,3 +310,7 @@ input[type="checkbox"]:checked::before {
   font-size: var(--h1-font-size);
   font-weight: 500;
 }
+
+.second i{
+  color: rgba(32, 143, 36, 0.88);
+}
