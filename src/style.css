@@ -149,6 +149,9 @@ li{
 
 .default .sidebar_item{
   --color-accent: #e3443235;
+  border: none;
+  background-color: transparent;
+  width: 100%;
   display: flex;
   gap: .9rem;
   padding: 0.4rem;
@@ -168,7 +171,12 @@ li{
 }
 
 #Add_project{
+  display: flex;
+  gap: 1rem;
   margin: 1rem 0;
+  border: none;
+  background-color: transparent;
+  width: 100%;
   font-size: var(--h1-font-size);
   color: var(--color-accent);
   align-items: center;
@@ -286,6 +294,7 @@ input[type="checkbox"]:checked::before {
   display: flex;
   align-items: center;
   gap: 2rem;
+  transition: 0.3s ease;
 }
 
 .add_todo:hover{
@@ -301,11 +310,6 @@ input[type="checkbox"]:checked::before {
   border: none;
   background-color: inherit;
   color: var(--color-text-secondary);
-}
-
-.btn i{
-  --color-container-light-blue: #09ce68;
-  color: var(--color-container-light-blue);
 }
 
 .title{
