@@ -304,7 +304,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .btn i{
-  --color-container-light-blue: #13d973;
+  --color-container-light-blue: #09ce68;
   color: var(--color-container-light-blue);
 }
 
@@ -314,5 +314,5 @@ input[type="checkbox"]:checked::before {
 }
 
 .second i{
-  color: rgba(32, 143, 36, 0.88);
+  color: rgba(121, 209, 124, 0.88);
 }
