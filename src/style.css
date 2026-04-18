@@ -197,13 +197,13 @@ li{
   padding: 0rem 4rem;
 }
 
-#project_name{
+.project_name{
   display: flex;
   justify-content: space-between;
   margin: 2rem 0;
 }
 
-#project_name i{
+.project_name i{
   font-size: var(--bigger-font-size);
 }
 
@@ -308,8 +308,7 @@ input[type="checkbox"]:checked::before {
 
 .btn{
   border: none;
-  background-color: inherit;
-  color: var(--color-text-secondary);
+  background-color: transparent;
 }
 
 .title{
@@ -317,6 +316,11 @@ input[type="checkbox"]:checked::before {
   font-weight: 500;
 }
 
-.second i{
-  color: rgba(121, 209, 124, 0.88);
+.priority{
+  color: var(--color-accent);
+}
+
+.second .time{
+  color: rgb(14, 160, 101);
+  display: flex;
 }
