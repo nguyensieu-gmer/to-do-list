@@ -14,6 +14,11 @@ export function ProjectManager(){
         return project.id;
     }
 
+    const setProject = (data) => {
+        if (!data) return;
+        return projects = data;
+    }
+
     const findProjectById = (projectId) => {
         const project = projects.find(ob => ob.id === projectId);
         return project; 
@@ -37,6 +42,7 @@ export function ProjectManager(){
         findProjectById, 
         renameProjectById, 
         deleteProjectById, 
-        getprojects
+        getprojects,
+        setProject
     }
 }

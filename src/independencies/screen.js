@@ -1,4 +1,4 @@
-export function screenController(){
+export function displayLocalStorage(){
     let todolist = JSON.parse(localStorage.getItem('todolist')) || [];
 
     function makeProjectBtn(projectId, projectName){
@@ -15,27 +15,28 @@ export function screenController(){
     }
 
     function displayProjectToSideBar(){
-        const projects = document.getElementById('projects');
+        const projectList = document.getElementById('projectList');
+        projectList.innerHTML = '';
         todolist.forEach(project => {
             const btn = makeProjectBtn(project.id, project.projectName);
-            projects.appendChild(btn)
+            projectList.appendChild(btn)
         });
     }
 
     const makeProjectName = (projectName) => {
-        const project_name = document.createElement('div');
-        project_name.classList.add('project_name');
+        const div = document.createElement('div');
+        div.classList.add('project_name');
         const h1 = document.createElement('h1');
         h1.textContent = projectName;
-        project_name.appendChild(h1);
+        div.appendChild(h1);
         const btn = document.createElement('button');
         btn.classList.add('btn');
         const i = document.createElement('i');
         i.classList.add('ri-more-fill');
         i.classList.add('add');
         btn.appendChild(i);
-        project_name.appendChild(btn);
-        return project_name;
+        div.appendChild(btn);
+        return div;
     }
 
     const makeTodoName = (todoName) => {
@@ -155,7 +156,12 @@ export function screenController(){
         content.innerHTML = '';
 
         const project = todolist.find(item => item.id === id);
-        const project_name = makeProjectName(project.projectName);
+
+        if (!project){
+            console.error('project not found!');
+            return;
+        }
+        const project_name = makeProjectName(project.projectName); 
         content.appendChild(project_name);
 
         project.todos.forEach(todo => {
@@ -169,7 +175,12 @@ export function screenController(){
         projectUI.addEventListener('click', e => {
             const btn = e.target.closest('.sidebar_item');
             if (!btn) return;
-            displayProject(btn.dataset.id);
+            const id = btn.dataset.id;
+            if (!id){
+                console.error('not found id');
+                return;
+            }
+            displayProject(id);
         });
     }
 

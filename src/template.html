@@ -34,12 +34,30 @@
                     <i class="ri-add-circle-fill"></i>
                     <a href="#">Add project</a>
                 </button>
+                <div id="projectList">
+
+                </div>
             </div>
         </div>
     </div>
     <div class="content">
         
     </div>
+    <dialog id="Add_project_dialog">
+        <form method="dialog">
+            <div>
+                <label for="new_project_name"></label>
+                <input type="text" name="new_project_name" id="new_project_name">
+            </div>
+            <div>
+                <button value="cancel" formmethod="dialog" type="submit">Cancel</button>
+                <button value="create" type="submit">create</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="modify_project">
+        
+    </dialog>
 </div>
 </body>
 </html>
