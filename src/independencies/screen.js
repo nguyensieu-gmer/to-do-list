@@ -192,7 +192,7 @@ export function displayLocalStorage(){
 
         displayProject(workout.id);
     }
-
+    
     displayWorkout();
     displayTodo();
     displayProjectToSideBar();

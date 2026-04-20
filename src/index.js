@@ -50,10 +50,17 @@ function handleProjectEdit(){
     const Add_project = document.getElementById('Add_project');
     const confirm_dialog = document.getElementById('confirm_dialog');
     const rename_dialog = document.getElementById('rename_dialog');
+    const add_todo_dialog = document.getElementById('add_todo_dialog');
 
     Add_project.addEventListener('click', e => {
         Add_project_dialog.showModal();
     });
+
+    const addTodo = (projectId, todoName) => {
+        const project = PM.findProjectById(projectId);
+        TM.addTodo(project, todoName);
+        saveToDoList();
+    }
 
     const deleteProject = (projectId) => {
         PM.deleteProjectById(projectId);
@@ -68,6 +75,16 @@ function handleProjectEdit(){
         }
     });
 
+    add_todo_dialog.addEventListener('submit', e => {
+        if (e.submitter.value === 'cancel') return;
+        const input_todo_name = document.getElementById('input_todo_name');
+        if (input_todo_name.value === ''){
+            return;
+        }
+        addTodo(Add_project_dialog.dataset.id, input_todo_name.value);
+        displayLocalStorage();
+    });
+
     const renameProject = (projectId, newName) => {
         PM.renameProjectById(projectId, newName);
         saveToDoList();
@@ -75,9 +92,9 @@ function handleProjectEdit(){
 
     rename_dialog.addEventListener('submit', e => {
         if (e.submitter.value === 'cancel') return;
-        const new_name = document.getElementById('new_name');
-        if (new_name === '') return;
-        renameProject(Add_project_dialog.dataset.id, new_name.value);
+        const input_new_project_name = document.getElementById('input_new_project_name');
+        if (input_new_project_name === '') return;
+        renameProject(Add_project_dialog.dataset.id, input_new_project_name.value);
         displayLocalStorage();
     })
 
@@ -88,6 +105,9 @@ function handleProjectEdit(){
         }
         else if (value === 'delete'){
             confirm_dialog.showModal();
+        }
+        else if (value === 'add_todo'){
+            add_todo_dialog.showModal();
         }
         else return;
     });

@@ -57,6 +57,7 @@
     </dialog>
     <dialog id="modify_project_dialog">
         <form method="dialog">
+            <button class="form_btn" value="add_todo">Add todo</button>
             <button class="form_btn" value="rename">Rename</button>
             <button class="form_btn" value="delete" id="delete_project_btn">Delete</button>
             <button class="form_btn" value="cancel">Cancel</button>
@@ -71,10 +72,20 @@
     </dialog>
     <dialog id="rename_dialog">
         <form method="dialog">
-            <label for="new_name"></label>
-            <input type="text" name="new_name" id="new_name">
+            <label for="input_new_project_name">new project name</label>
+            <input type="text" name="input_new_project_name" id="input_new_project_name">
             <button value="cancel" class="form_btn">Cancel</button>
             <button value="rename" class="form_btn">Rename</button>
+        </form>
+    </dialog>
+    <dialog id="add_todo_dialog">
+        <form method="dialog">
+            <div>
+                <label for="input_todo_name">new todo name</label>
+                <input type="text" name="input_todo_name" id="input_todo_name">
+            </div>
+            <button value="cancel" class="form_btn">Cancel</button>
+            <button value="create" class="form_btn">Create</button>
         </form>
     </dialog>
 </div>
