@@ -23,7 +23,7 @@ export function displayLocalStorage(){
         });
     }
 
-    const makeProjectName = (projectName) => {
+    const makeProjectName = (projectName, projectId) => {
         const div = document.createElement('div');
         div.classList.add('project_name');
         const h1 = document.createElement('h1');
@@ -31,6 +31,8 @@ export function displayLocalStorage(){
         div.appendChild(h1);
         const btn = document.createElement('button');
         btn.classList.add('btn');
+        btn.classList.add('modify_project_btn');
+        btn.dataset.id = projectId;
         const i = document.createElement('i');
         i.classList.add('ri-more-fill');
         i.classList.add('add');
@@ -161,7 +163,7 @@ export function displayLocalStorage(){
             console.error('project not found!');
             return;
         }
-        const project_name = makeProjectName(project.projectName); 
+        const project_name = makeProjectName(project.projectName, project.id); 
         content.appendChild(project_name);
 
         project.todos.forEach(todo => {

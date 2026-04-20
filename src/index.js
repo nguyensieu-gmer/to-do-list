@@ -39,11 +39,68 @@ function saveToLocalStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
+function saveToDoList(){
+    saveToLocalStorage('todolist', PM.getprojects());
+}
+
 function handleProjectEdit(){
-    const Add_project = document.getElementById('Add_project');
     const Add_project_dialog = document.getElementById('Add_project_dialog');
+    const modify_project_dialog = document.getElementById('modify_project_dialog');
+    const content = document.querySelector('.content');
+    const Add_project = document.getElementById('Add_project');
+    const confirm_dialog = document.getElementById('confirm_dialog');
+    const rename_dialog = document.getElementById('rename_dialog');
+
     Add_project.addEventListener('click', e => {
-        e.preventDefault();
+        Add_project_dialog.showModal();
+    });
+
+    const deleteProject = (projectId) => {
+        PM.deleteProjectById(projectId);
+        saveToDoList();
+    }
+
+    confirm_dialog.addEventListener('close', e => {
+        const value = confirm_dialog.returnValue;
+        if (value === 'yes'){
+            deleteProject(Add_project_dialog.dataset.id);
+            displayLocalStorage();
+        }
+    });
+
+    const renameProject = (projectId, newName) => {
+        PM.renameProjectById(projectId, newName);
+        saveToDoList();
+    }
+
+    rename_dialog.addEventListener('submit', e => {
+        if (e.submitter.value === 'cancel') return;
+        const new_name = document.getElementById('new_name');
+        if (new_name === '') return;
+        renameProject(Add_project_dialog.dataset.id, new_name.value);
+        displayLocalStorage();
+    })
+
+    modify_project_dialog.addEventListener('close', e => {
+        const value = modify_project_dialog.returnValue;
+        if (value === 'rename'){
+            rename_dialog.showModal();
+        }
+        else if (value === 'delete'){
+            confirm_dialog.showModal();
+        }
+        else return;
+    });
+
+    content.addEventListener('click', e => {
+        const btn = e.target.closest('.modify_project_btn');
+        if (!btn) return;
+
+        Add_project_dialog.dataset.id = btn.dataset.id;
+        modify_project_dialog.showModal();
+    });
+
+    Add_project.addEventListener('click', e => {
         Add_project_dialog.showModal();
     });
 
@@ -57,7 +114,7 @@ function handleProjectEdit(){
             
         const new_project_name = document.getElementById('new_project_name');
         const newName = new_project_name.value
-        if (!newName){
+        if (newName === ''){
             Add_project_dialog.close();
             return;
         }
