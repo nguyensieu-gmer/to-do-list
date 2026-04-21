@@ -140,7 +140,7 @@ function handleProjectEdit(){
         }
             
         PM.addProject(newName);
-        saveToLocalStorage('todolist', PM.getprojects());
+        saveToDoList();
         screenController().init();
         Add_project_dialog.close();
     });

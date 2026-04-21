@@ -201,9 +201,11 @@ export function screenController(){
     function init(){
         renderSidebar();
         RenderTheFirstInTodolist();
-        bindEvents();
+        
     }
     return {
-        init
+        init,
+        bindEvents,
+        displayProject
     }
 }
