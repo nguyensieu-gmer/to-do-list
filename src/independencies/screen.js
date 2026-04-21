@@ -186,14 +186,13 @@ export function displayLocalStorage(){
         });
     }
 
-    function displayWorkout(){
-        const workout = todolist.find(item => item.projectName === 'Work out');
-        if (!workout) return;
-
+    function renderTheFirstInTodolist(){
+        if (todolist.length === 0) return;
+        const workout = todolist[0];
         displayProject(workout.id);
     }
     
-    displayWorkout();
+    renderTheFirstInTodolist();
     displayTodo();
     displayProjectToSideBar();
 }
