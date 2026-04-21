@@ -204,4 +204,4 @@ function initRender(){
     bindEvents();
 }
 
-export { initRender, displayProject, getData, renderSidebar, bindEvents };
+export { initRender, displayProject, getData, renderSidebar };

@@ -1,7 +1,7 @@
 import { ProjectManager } from './independencies/project.js';
 import { TodoManager } from './independencies/todo.js';
 import { TaskManager } from './independencies/task.js';
-import { initRender, displayProject, getData, renderSidebar, bindEvents } from './independencies/screen.js';
+import { initRender, displayProject, getData, renderSidebar } from './independencies/screen.js';
 import { addDays, addHours, format } from 'date-fns';
 import './style.css';
 
