@@ -52,52 +52,6 @@ function handleProjectEdit(){
     const rename_dialog = document.getElementById('rename_dialog');
     const add_todo_dialog = document.getElementById('add_todo_dialog');
 
-    Add_project.addEventListener('click', e => {
-        Add_project_dialog.showModal();
-    });
-
-    const addTodo = (projectId, todoName) => {
-        const project = PM.findProjectById(projectId);
-        TM.addTodo(project, todoName);
-        saveToDoList();
-    }
-
-    const deleteProject = (projectId) => {
-        PM.deleteProjectById(projectId);
-        saveToDoList();
-    }
-
-    confirm_dialog.addEventListener('close', e => {
-        const value = confirm_dialog.returnValue;
-        if (value === 'yes'){
-            deleteProject(Add_project_dialog.dataset.id);
-            screenController().init();
-        }
-    });
-
-    add_todo_dialog.addEventListener('submit', e => {
-        if (e.submitter.value === 'cancel') return;
-        const input_todo_name = document.getElementById('input_todo_name');
-        if (input_todo_name.value === ''){
-            return;
-        }
-        addTodo(Add_project_dialog.dataset.id, input_todo_name.value);
-        screenController().init();
-    });
-
-    const renameProject = (projectId, newName) => {
-        PM.renameProjectById(projectId, newName);
-        saveToDoList();
-    }
-
-    rename_dialog.addEventListener('submit', e => {
-        if (e.submitter.value === 'cancel') return;
-        const input_new_project_name = document.getElementById('input_new_project_name');
-        if (input_new_project_name === '') return;
-        renameProject(Add_project_dialog.dataset.id, input_new_project_name.value);
-        screenController().init();
-    })
-
     modify_project_dialog.addEventListener('close', e => {
         const value = modify_project_dialog.returnValue;
         if (value === 'rename'){
@@ -112,12 +66,58 @@ function handleProjectEdit(){
         else return;
     });
 
+    const addTodo = (projectId, todoName) => {
+        const project = PM.findProjectById(projectId);
+        TM.addTodo(project, todoName);
+        saveToDoList();
+    }
+
+    add_todo_dialog.addEventListener('submit', e => {
+        if (e.submitter.value === 'cancel') return;
+        const input_todo_name = document.getElementById('input_todo_name');
+        if (input_todo_name.value === ''){
+            return;
+        }
+        addTodo(Add_project_dialog.dataset.id, input_todo_name.value);
+        screenController().init();
+    });
+
+    const deleteProject = (projectId) => {
+        PM.deleteProjectById(projectId);
+        saveToDoList();
+    }
+
+    confirm_dialog.addEventListener('close', e => {
+        const value = confirm_dialog.returnValue;
+        if (value === 'yes'){
+            deleteProject(Add_project_dialog.dataset.id);
+            screenController().init();
+        }
+    });
+
+    rename_dialog.addEventListener('submit', e => {
+        if (e.submitter.value === 'cancel') return;
+        const input_new_project_name = document.getElementById('input_new_project_name');
+        if (input_new_project_name === '') return;
+        renameProject(Add_project_dialog.dataset.id, input_new_project_name.value);
+        screenController().init();
+    })
+
+    const renameProject = (projectId, newName) => {
+        PM.renameProjectById(projectId, newName);
+        saveToDoList();
+    }
+
     content.addEventListener('click', e => {
         const btn = e.target.closest('.modify_project_btn');
         if (!btn) return;
 
         Add_project_dialog.dataset.id = btn.dataset.id;
         modify_project_dialog.showModal();
+    });
+
+    Add_project.addEventListener('click', e => {
+        Add_project_dialog.showModal();
     });
 
     Add_project.addEventListener('click', e => {
