@@ -209,6 +209,7 @@ export function screenController(){
     }
 
     return {
-        init
+        init,
+        displayProject
     }
 }

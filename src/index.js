@@ -139,9 +139,10 @@ function handleProjectEdit(){
             return;
         }
             
-        PM.addProject(newName);
+        const project_id = PM.addProject(newName);
         saveToDoList();
         screenController().init();
+        screenController().displayProject(project_id);
         Add_project_dialog.close();
     });
 }
