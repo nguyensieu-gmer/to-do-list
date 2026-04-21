@@ -188,7 +188,11 @@ function displayProject(id){
     renderProject(project);
 }
 
+let haveClick = false
 function RenderTheFirstInTodolist(){
+    if (haveClick) return;
+    haveClick = true;
+    
     const todolist = getData();
     if (todolist.length === 0) return;
     const workout = todolist[0];
@@ -201,7 +205,6 @@ export function screenController(){
     function init(){
         renderSidebar();
         RenderTheFirstInTodolist();
-        
     }
     return {
         init,
