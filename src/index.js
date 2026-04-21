@@ -1,7 +1,7 @@
 import { ProjectManager } from './independencies/project.js';
 import { TodoManager } from './independencies/todo.js';
 import { TaskManager } from './independencies/task.js';
-import { initRender, displayProject, getData, renderSidebar, displayTheNearestProject } from './independencies/screen.js';
+import { initRender, displayProject, getData, renderSidebar } from './independencies/screen.js';
 import { addDays, addHours, format } from 'date-fns';
 import './style.css';
 
@@ -100,9 +100,15 @@ function handleProjectEdit(){
     confirm_dialog.addEventListener('close', e => {
         const value = confirm_dialog.returnValue;
         if (value === 'yes'){
+            const ids = getData().map(item => item.id);
+            const index = ids.findIndex(id => id === currentProjectID);
+
+            const next = ids[index - 1] || ids[index + 1];
+
             deleteProject(currentProjectID);
             renderSidebar();
-            displayTheNearestProject(currentProjectID);
+
+            if (next) displayProject(next);
         }
     });
 
