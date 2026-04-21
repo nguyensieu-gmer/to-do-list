@@ -66,6 +66,15 @@ class App{
         const add_todo_dialog = document.getElementById('add_todo_dialog');
         const rename_dialog = document.getElementById('rename_dialog');
 
+        add_todo_dialog.addEventListener('submit', e => {
+            if (e.submitter.value === 'cancel') return;
+            const todoName = document.getElementById('input_todo_name');
+            if (todoName.value === ''){
+                return;
+            }
+            this.handleAddTodo(todoName.value);
+        });
+
         rename_dialog.addEventListener('submit', e => {
             if (e.submitter.value === 'cancel') return;
             const newProjectName = document.getElementById('input_new_project_name');
@@ -124,6 +133,13 @@ class App{
         });
 
 
+    }
+    handleAddTodo(todoName){
+        const project = this.PM.findProjectById(this.currentProjectID);
+        this.TM.addTodo(project, todoName);
+        this.save();
+        renderSidebar();
+        displayProject(this.currentProjectID);
     }
 
     handleRenameProject(newProjectName){
