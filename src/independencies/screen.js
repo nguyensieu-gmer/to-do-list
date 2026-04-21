@@ -188,10 +188,7 @@ function displayProject(id){
     renderProject(project);
 }
 
-let haveClick = false
 function RenderTheFirstInTodolist(){
-    if (haveClick) return;
-    haveClick = true;
 
     const todolist = getData();
     if (todolist.length === 0) return;
@@ -207,4 +204,18 @@ function initRender(){
     bindEvents();
 }
 
-export { initRender, displayProject }
+function displayTheNearestProject(projectId) {
+    const projectIDStack = getData().map(item => item.id);
+    if (projectIDStack.length === 0) return; // don't do anything if there's not project in sidebar 
+    const index = projectIDStack.findIndex(id => id === projectId);
+
+    if (index === -1) return;
+
+    const next = projectIDStack[index - 1] || projectIDStack[index + 1];
+
+    if (next){
+        displayProject(next);
+    }
+}
+
+export { initRender, displayProject, getData, renderSidebar, displayTheNearestProject };

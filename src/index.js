@@ -1,7 +1,7 @@
 import { ProjectManager } from './independencies/project.js';
 import { TodoManager } from './independencies/todo.js';
 import { TaskManager } from './independencies/task.js';
-import { initRender, displayProject } from './independencies/screen.js';
+import { initRender, displayProject, getData, renderSidebar, displayTheNearestProject } from './independencies/screen.js';
 import { addDays, addHours, format } from 'date-fns';
 import './style.css';
 
@@ -51,16 +51,16 @@ function handleProjectEdit(){
     const confirm_dialog = document.getElementById('confirm_dialog');
     const rename_dialog = document.getElementById('rename_dialog');
     const add_todo_dialog = document.getElementById('add_todo_dialog');
-    const projectIDStack = [];
+    let currentProjectID = getData().length >= 0 ? getData()[0].id : null;
 
     content.addEventListener('click', e => {
         const btn = e.target.closest('.modify_project_btn');
         if (!btn) return;
 
-        Add_project_dialog.dataset.id = btn.dataset.id;
+        currentProjectID = btn.dataset.id;
         modify_project_dialog.showModal();
     });
-    
+
     modify_project_dialog.addEventListener('close', e => {
         const value = modify_project_dialog.returnValue;
         if (value === 'rename'){
@@ -87,8 +87,9 @@ function handleProjectEdit(){
         if (input_todo_name.value === ''){
             return;
         }
-        addTodo(Add_project_dialog.dataset.id, input_todo_name.value);
-        initRender();
+        addTodo(currentProjectID, input_todo_name.value);
+        renderSidebar();
+        displayProject(currentProjectID);
     });
 
     const deleteProject = (projectId) => {
@@ -99,17 +100,19 @@ function handleProjectEdit(){
     confirm_dialog.addEventListener('close', e => {
         const value = confirm_dialog.returnValue;
         if (value === 'yes'){
-            deleteProject(Add_project_dialog.dataset.id);
-            initRender();
+            deleteProject(currentProjectID);
+            renderSidebar();
+            displayTheNearestProject(currentProjectID);
         }
     });
 
     rename_dialog.addEventListener('submit', e => {
         if (e.submitter.value === 'cancel') return;
         const input_new_project_name = document.getElementById('input_new_project_name');
-        if (input_new_project_name === '') return;
-        renameProject(Add_project_dialog.dataset.id, input_new_project_name.value);
-        initRender();
+        if (input_new_project_name.value === '') return;
+        renameProject(currentProjectID, input_new_project_name.value);
+        renderSidebar();
+        displayProject(currentProjectID);
     })
 
     const renameProject = (projectId, newName) => {
@@ -138,11 +141,11 @@ function handleProjectEdit(){
             
         const project_id = PM.addProject(newName);
         saveToDoList();
-        initRender();
+        renderSidebar();
         displayProject(project_id);
         Add_project_dialog.close();
     });
 }
 
-handleProjectEdit();
 initLocalStorage();
+handleProjectEdit();
