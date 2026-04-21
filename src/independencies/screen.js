@@ -208,15 +208,6 @@ export function screenController(){
         bindEvents();
     }
 
-    function renderTheFirstInTodolist(){
-        if (todolist.length === 0) return;
-        const workout = todolist[0];
-        displayProject(workout.id);
-    }
-    
-    renderTheFirstInTodolist();
-    displayTodo();
-    displayProjectToSideBar();
     return {
         init
     }
