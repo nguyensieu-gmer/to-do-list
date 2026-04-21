@@ -156,7 +156,6 @@ const makeAddTodoBtn = () => {
 }   
 
 function renderProject(project){
-    if (!project) return;
     const content = document.querySelector('.content');
     content.innerHTML = '';
 
@@ -168,8 +167,10 @@ function renderProject(project){
     });
 }
 
+let isBound = false;
 function bindEvents(){
-    // sieu
+    if (isBound) return;
+    isBound = true;
 
     document.getElementById('projects').addEventListener('click', e => {
         const btn = e.target.closest('.sidebar_item');
