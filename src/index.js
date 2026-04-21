@@ -51,7 +51,16 @@ function handleProjectEdit(){
     const confirm_dialog = document.getElementById('confirm_dialog');
     const rename_dialog = document.getElementById('rename_dialog');
     const add_todo_dialog = document.getElementById('add_todo_dialog');
+    const projectIDStack = [];
 
+    content.addEventListener('click', e => {
+        const btn = e.target.closest('.modify_project_btn');
+        if (!btn) return;
+
+        Add_project_dialog.dataset.id = btn.dataset.id;
+        modify_project_dialog.showModal();
+    });
+    
     modify_project_dialog.addEventListener('close', e => {
         const value = modify_project_dialog.returnValue;
         if (value === 'rename'){
@@ -107,18 +116,6 @@ function handleProjectEdit(){
         PM.renameProjectById(projectId, newName);
         saveToDoList();
     }
-
-    content.addEventListener('click', e => {
-        const btn = e.target.closest('.modify_project_btn');
-        if (!btn) return;
-
-        Add_project_dialog.dataset.id = btn.dataset.id;
-        modify_project_dialog.showModal();
-    });
-
-    Add_project.addEventListener('click', e => {
-        Add_project_dialog.showModal();
-    });
 
     Add_project.addEventListener('click', e => {
         Add_project_dialog.showModal();
