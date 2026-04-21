@@ -1,7 +1,7 @@
 import { ProjectManager } from './independencies/project.js';
 import { TodoManager } from './independencies/todo.js';
 import { TaskManager } from './independencies/task.js';
-import { displayLocalStorage } from './independencies/screen.js';
+import { screenController } from './independencies/screen.js';
 import { addDays, addHours, format } from 'date-fns';
 import './style.css';
 
@@ -32,7 +32,7 @@ function init(){
     else{
         addDefault();
     }
-    displayLocalStorage();
+    screenController().init();
 }
 
 function saveToLocalStorage(key, data) {
@@ -71,7 +71,7 @@ function handleProjectEdit(){
         const value = confirm_dialog.returnValue;
         if (value === 'yes'){
             deleteProject(Add_project_dialog.dataset.id);
-            displayLocalStorage();
+            screenController().init();
         }
     });
 
@@ -82,7 +82,7 @@ function handleProjectEdit(){
             return;
         }
         addTodo(Add_project_dialog.dataset.id, input_todo_name.value);
-        displayLocalStorage();
+        screenController().init();
     });
 
     const renameProject = (projectId, newName) => {
@@ -95,7 +95,7 @@ function handleProjectEdit(){
         const input_new_project_name = document.getElementById('input_new_project_name');
         if (input_new_project_name === '') return;
         renameProject(Add_project_dialog.dataset.id, input_new_project_name.value);
-        displayLocalStorage();
+        screenController().init();
     })
 
     modify_project_dialog.addEventListener('close', e => {
@@ -140,8 +140,8 @@ function handleProjectEdit(){
         }
             
         PM.addProject(newName);
-        saveToLocalStorage('todolist', PM.getprojects());
-        displayLocalStorage();
+        saveToDoList();
+        screenController().init();
         Add_project_dialog.close();
     });
 }
