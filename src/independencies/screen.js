@@ -201,15 +201,10 @@ function RenderTheFirstInTodolist(){
     displayProject(workout.id);
 }
 
-export function screenController(){
-    function init(){
-        renderSidebar();
-        RenderTheFirstInTodolist();
-        bindEvents();
-    }
-
-    return {
-        init,
-        displayProject
-    }
+function initRender(){
+    renderSidebar();
+    RenderTheFirstInTodolist();
+    bindEvents();
 }
+
+export { initRender, displayProject }

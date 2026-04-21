@@ -1,7 +1,7 @@
 import { ProjectManager } from './independencies/project.js';
 import { TodoManager } from './independencies/todo.js';
 import { TaskManager } from './independencies/task.js';
-import { screenController } from './independencies/screen.js';
+import { initRender, displayProject } from './independencies/screen.js';
 import { addDays, addHours, format } from 'date-fns';
 import './style.css';
 
@@ -23,7 +23,7 @@ function addDefault(){
     localStorage.setItem('todolist', JSON.stringify(PM.getprojects()));
 }
 
-function init(){
+function initLocalStorage(){
     const data = JSON.parse(localStorage.getItem('todolist'));
     
     if (data){
@@ -32,7 +32,7 @@ function init(){
     else{
         addDefault();
     }
-    screenController().init();
+    initRender();
 }
 
 function saveToLocalStorage(key, data) {
@@ -79,7 +79,7 @@ function handleProjectEdit(){
             return;
         }
         addTodo(Add_project_dialog.dataset.id, input_todo_name.value);
-        screenController().init();
+        initRender();
     });
 
     const deleteProject = (projectId) => {
@@ -91,7 +91,7 @@ function handleProjectEdit(){
         const value = confirm_dialog.returnValue;
         if (value === 'yes'){
             deleteProject(Add_project_dialog.dataset.id);
-            screenController().init();
+            initRender();
         }
     });
 
@@ -100,7 +100,7 @@ function handleProjectEdit(){
         const input_new_project_name = document.getElementById('input_new_project_name');
         if (input_new_project_name === '') return;
         renameProject(Add_project_dialog.dataset.id, input_new_project_name.value);
-        screenController().init();
+        initRender();
     })
 
     const renameProject = (projectId, newName) => {
@@ -141,11 +141,11 @@ function handleProjectEdit(){
             
         const project_id = PM.addProject(newName);
         saveToDoList();
-        screenController().init();
-        screenController().displayProject(project_id);
+        initRender();
+        displayProject(project_id);
         Add_project_dialog.close();
     });
 }
 
 handleProjectEdit();
-init();
+initLocalStorage();
