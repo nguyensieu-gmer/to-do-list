@@ -150,10 +150,14 @@ class App{
         content.addEventListener('click', e => {
             const modify_project_btn = e.target.closest('.modify_project_btn');
             const modify_todo_btn = e.target.closest('.modify_todo_btn');
+            const project_item = e.target.closest('.project_item');
+
+            if (project_item){
+                this.currentTodoID = project_item.dataset.id;
+                console.log(this.currentTodoID);
+            }
 
             if (modify_todo_btn){
-                const todoID = modify_todo_btn.closest('.project_item').dataset.id;
-                this.currentTodoID = todoID;
                 modify_todo_dialog.showModal();
             }
 
