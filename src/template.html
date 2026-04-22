@@ -63,14 +63,14 @@
             <button class="form_btn" value="cancel">Cancel</button>
         </form>
     </dialog>
-    <dialog id="confirm_dialog">
+    <dialog id="confirm_project_dialog">
         <form method="dialog">
             <p>are you sure</p>
             <button class="form_btn" value="cancel">Cancel</button>
             <button class="form_btn" value="yes">Yes</button>
         </form>
     </dialog>
-    <dialog id="rename_dialog">
+    <dialog id="rename_project_dialog">
         <form method="dialog">
             <label for="input_new_project_name">new project name</label>
             <input type="text" name="input_new_project_name" id="input_new_project_name">
@@ -88,9 +88,11 @@
             <button value="create" class="form_btn">Create</button>
         </form>
     </dialog>
-    <dialog id="modify_todo">
+    <dialog id="modify_todo_dialog">
         <form method="dialog">
-            <button></button>
+            <button value="rename" class="form_btn">Rename</button>
+            <button value="delete" class="form_btn">delete</button>
+            <button value="create" class="form_btn">Create</button>
         </form>
     </dialog>
 </div>

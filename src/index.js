@@ -59,12 +59,12 @@ class App{
 
     bindEvents(){
         const content = document.querySelector('.content');
-        const confirm_dialog = document.getElementById('confirm_dialog');
+        const confirm_project_dialog = document.getElementById('confirm_project_dialog');
         const Add_project_dialog = document.getElementById('Add_project_dialog');
         const Add_project = document.getElementById('Add_project');
         const modify_project_dialog = document.getElementById('modify_project_dialog');
         const add_todo_dialog = document.getElementById('add_todo_dialog');
-        const rename_dialog = document.getElementById('rename_dialog');
+        const rename_project_dialog = document.getElementById('rename_project_dialog');
 
         add_todo_dialog.addEventListener('submit', e => {
             if (e.submitter.value === 'cancel') return;
@@ -75,7 +75,7 @@ class App{
             this.handleAddTodo(todoName.value);
         });
 
-        rename_dialog.addEventListener('submit', e => {
+        rename_project_dialog.addEventListener('submit', e => {
             if (e.submitter.value === 'cancel') return;
             const newProjectName = document.getElementById('input_new_project_name');
             if (newProjectName.value === '') return;
@@ -85,10 +85,10 @@ class App{
         modify_project_dialog.addEventListener('close', e => {
             const value = modify_project_dialog.returnValue;
             if (value === 'rename'){
-                rename_dialog.showModal();
+                rename_project_dialog.showModal();
             }
             else if (value === 'delete'){
-                confirm_dialog.showModal();
+                confirm_project_dialog.showModal();
             }
             else if (value === 'add_todo'){
                 add_todo_dialog.showModal();
@@ -126,8 +126,8 @@ class App{
             document.getElementById('modify_project_dialog').showModal();
         });
 
-        confirm_dialog.addEventListener('close', e => {
-            if (confirm_dialog.returnValue === 'yes'){
+        confirm_project_dialog.addEventListener('close', e => {
+            if (confirm_project_dialog.returnValue === 'yes'){
                 this.handleDeleteProject();
             }
         });
