@@ -49,6 +49,7 @@ const makeTodoName = (todoName) => {
     const h2 = document.createElement('h2');
     h2.textContent = todoName;
     const btn = document.createElement('button');
+    btn.classList.add('modify_todo_btn');
     btn.classList.add('btn');
     const i = document.createElement('i');
     i.classList.add('ri-more-fill');
@@ -62,6 +63,7 @@ const makeTodoName = (todoName) => {
 
 const makeTodoTask = (todo) => {
     const div = document.createElement('div');
+    div.classList.add('project_item');
     const todo_name = makeTodoName(todo.todoName);
     const ultask = makeTodoUl(todo.tasks);
     div.dataset.id = todo.id;
@@ -93,7 +95,7 @@ function makeTodoUl(tasks){
         const i = document.createElement('i');
         i.classList.add('ri-time-fill');
         time.appendChild(i);
-        time.append(` ${dueDate}`);
+        time.append(` ${dueDate}` );
         div.appendChild(time);
         return div;
     }

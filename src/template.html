@@ -65,7 +65,7 @@
     </dialog>
     <dialog id="confirm_project_dialog">
         <form method="dialog">
-            <p>are you sure</p>
+            <p>are you sure to delete this project</p>
             <button class="form_btn" value="cancel">Cancel</button>
             <button class="form_btn" value="yes">Yes</button>
         </form>
@@ -91,8 +91,23 @@
     <dialog id="modify_todo_dialog">
         <form method="dialog">
             <button value="rename" class="form_btn">Rename</button>
-            <button value="delete" class="form_btn">delete</button>
-            <button value="create" class="form_btn">Create</button>
+            <button value="delete" class="form_btn">Delete</button>
+            <button value="cancel" class="form_btn">Cancel</button>
+        </form>
+    </dialog>
+    <dialog id="rename_todo_dialog">
+        <form method="dialog">
+            <label for="input_new_todo_name">new todo name</label>
+            <input type="text" name="input_new_todo_name" id="input_new_todo_name">
+            <button value="rename" class="form_btn">Rename</button>
+            <button value="cancel" class="form_btn">Cancel</button>
+        </form>
+    </dialog>   
+    <dialog id="delete_todo_dialog">
+        <form method="dialog">
+            <p>are you sure to delete this todo</p>
+            <button class="form_btn" value="cancel">Cancel</button>
+            <button class="form_btn" value="yes">Yes</button>
         </form>
     </dialog>
 </div>

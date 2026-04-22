@@ -12,6 +12,7 @@ class App{
         this.TKM = TaskManager();
 
         this.currentProjectID = null;
+        this.currentTodoID = null;
 
         this.init();
     }
@@ -65,6 +66,34 @@ class App{
         const modify_project_dialog = document.getElementById('modify_project_dialog');
         const add_todo_dialog = document.getElementById('add_todo_dialog');
         const rename_project_dialog = document.getElementById('rename_project_dialog');
+        const modify_todo_dialog = document.getElementById('modify_todo_dialog');
+        const rename_todo_dialog = document.getElementById('rename_todo_dialog');
+        const delete_todo_dialog = document.getElementById('delete_todo_dialog');
+
+        delete_todo_dialog.addEventListener('close', e => {
+            if (delete_todo_dialog.returnValue === 'yes'){
+                this.handleDeleteTodo();
+            }
+        })
+
+        rename_todo_dialog.addEventListener('submit', e => {
+            if (e.submitter.value === 'cancel') return;
+
+            const newName = document.getElementById('input_new_todo_name').value;
+            if (newName === '') return;
+            this.handleRenameTodo(newName);
+        })
+
+        modify_todo_dialog.addEventListener('close', () => {
+            const value = modify_todo_dialog.returnValue;
+            if (value === 'rename'){
+                rename_todo_dialog.showModal();
+            }
+            else if (value === 'delete'){
+                delete_todo_dialog.showModal();
+            }
+            else return;
+        });
 
         add_todo_dialog.addEventListener('submit', e => {
             if (e.submitter.value === 'cancel') return;
@@ -119,11 +148,19 @@ class App{
         });
 
         content.addEventListener('click', e => {
-            const btn = e.target.closest('.modify_project_btn');
-            if (!btn) return;
+            const modify_project_btn = e.target.closest('.modify_project_btn');
+            const modify_todo_btn = e.target.closest('.modify_todo_btn');
 
-            this.currentProjectID = btn.dataset.id;
-            document.getElementById('modify_project_dialog').showModal();
+            if (modify_todo_btn){
+                const todoID = modify_todo_btn.closest('.project_item').dataset.id;
+                this.currentTodoID = todoID;
+                modify_todo_dialog.showModal();
+            }
+
+            if (modify_project_btn){
+                this.currentProjectID = modify_project_btn.dataset.id;
+                modify_project_dialog.showModal();
+            }
         });
 
         confirm_project_dialog.addEventListener('close', e => {
@@ -134,6 +171,23 @@ class App{
 
 
     }
+    handleDeleteTodo(){
+        // current todo id is not null when user click to modify_todo_btn btn
+        if (!this.currentTodoID) return; 
+        this.TM.deleteTodoById(this.PM.findProjectById(this.currentProjectID), this.currentTodoID);
+        this.save();
+        displayProject(this.currentProjectID);
+    }
+
+    handleRenameTodo(newName){
+        // current todo id is not null when user click to modify_todo_btn btn
+        if (!this.currentTodoID) return; 
+        const todo = this.TM.findTodoById(this.PM.findProjectById(this.currentProjectID), this.currentTodoID);
+        this.TM.renameTodo(todo, newName);
+        this.save();
+        displayProject(this.currentProjectID);
+    }
+
     handleAddTodo(todoName){
         const project = this.PM.findProjectById(this.currentProjectID);
         this.TM.addTodo(project, todoName);
