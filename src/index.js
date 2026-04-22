@@ -154,7 +154,6 @@ class App{
 
             if (project_item){
                 this.currentTodoID = project_item.dataset.id;
-                console.log(this.currentTodoID);
             }
 
             if (modify_todo_btn){
