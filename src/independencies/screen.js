@@ -137,16 +137,16 @@ function makeTodoUl(tasks){
         const li = makeLi(item);
         ul.appendChild(li);
     })
-    const addbtn = makeAddTodoBtn();
+    const addbtn = makeAddTaskBtn();
     ul.appendChild(addbtn);
     return ul;
 }
 
-const makeAddTodoBtn = () => {
+const makeAddTaskBtn = () => {
     const li = document.createElement('li');
     li.classList.add('task');
     const btn = document.createElement('button');
-    btn.classList.add('add_todo');
+    btn.classList.add('add_task');
     const i = document.createElement('i');
     i.classList.add('ri-add-circle-fill');
     btn.appendChild(i);

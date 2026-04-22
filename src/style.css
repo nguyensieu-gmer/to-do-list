@@ -285,7 +285,7 @@ input[type="checkbox"]:checked::before {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.add_todo{
+.add_task{
   --color-accent: #e34432b2;
   color: var(--color-accent);
   border: none;
@@ -297,12 +297,12 @@ input[type="checkbox"]:checked::before {
   transition: 0.3s ease;
 }
 
-.add_todo:hover{
+.add_task:hover{
   color: var(--color-accent-hover);
   cursor: pointer;
 }
 
-.add_todo i{
+.add_task i{
   font-size: var(--bigger-font-size);
 }
 
