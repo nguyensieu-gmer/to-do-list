@@ -324,3 +324,8 @@ input[type="checkbox"]:checked::before {
   color: rgb(14, 160, 101);
   display: flex;
 }
+
+.edit_task_btn.btn{
+  display: flex;
+  flex-direction: row;
+}

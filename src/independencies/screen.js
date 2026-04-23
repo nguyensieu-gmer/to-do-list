@@ -110,8 +110,11 @@ function makeTodoUl(tasks){
         btn1.appendChild(i1);
         div.appendChild(btn1);
         const btn2 = document.createElement('button');
+        btn2.classList.add('edit_task_btn');
         btn2.classList.add('btn');
-        btn2.textContent = 'edit';
+        const p = document.createElement('p');
+        p.textContent = 'edit';
+        btn2.appendChild(p);
         const i2 = document.createElement('i');
         i2.classList.add('ri-hashtag');
         btn2.appendChild(i2);

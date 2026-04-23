@@ -13,6 +13,7 @@ class App{
 
         this.currentProjectID = null;
         this.currentTodoID = null;
+        this.currentTaskID = null;
 
         this.init();
     }
@@ -70,6 +71,24 @@ class App{
         const rename_todo_dialog = document.getElementById('rename_todo_dialog');
         const delete_todo_dialog = document.getElementById('delete_todo_dialog');
         const add_task_dialog = document.getElementById('add_task_dialog');
+        const edit_task_dialog = document.getElementById('edit_task_dialog');
+
+        edit_task_dialog.addEventListener('close', () => {
+            edit_task_dialog.querySelector('form').reset();
+        });
+
+        edit_task_dialog.addEventListener('submit', e => {
+            const value = e.submitter.value;
+            if (value === 'Change'){
+                // modify task handle;
+                console.log('change');
+            }
+            else if (value === 'delete'){
+                // delete task handle
+                console.log('delete');
+            }
+            else return;
+        });
 
         add_task_dialog.addEventListener('submit', e => {
             if (e.submitter.value === 'cancel') return;
@@ -160,25 +179,39 @@ class App{
 
         content.addEventListener('click', e => {
             const modify_project_btn = e.target.closest('.modify_project_btn');
-            const modify_todo_btn = e.target.closest('.modify_todo_btn');
-            const project_item = e.target.closest('.project_item');
-            const add_task = e.target.closest('.add_task');
-
-            if (add_task){
-                add_task_dialog.showModal();
-            }
-
-            if (project_item){
-                this.currentTodoID = project_item.dataset.id;
-            }
-
-            if (modify_todo_btn){
-                modify_todo_dialog.showModal();
-            }
-
             if (modify_project_btn){
                 this.currentProjectID = modify_project_btn.dataset.id;
                 modify_project_dialog.showModal();
+                return;
+            }
+
+            const add_task = e.target.closest('.add_task');
+            if (add_task){
+                const todo = add_task.closest('.project_item');
+                this.currentTodoID = todo.dataset.id;
+                add_task_dialog.showModal();
+                return;
+            }
+
+            const edit_task_btn = e.target.closest('.edit_task_btn');
+            if (edit_task_btn){
+                const task = edit_task_btn.closest('.task');
+                this.currentTaskID = task.dataset.id;
+
+                const project_item = task.closest('.project_item');
+                this.currentTodoID = project_item.dataset.id;
+
+                this.fillEditTaskDialog();
+                edit_task_dialog.showModal();
+                return;
+            }
+
+            const modify_todo_btn = e.target.closest('.modify_todo_btn');
+            if (modify_todo_btn){
+                const project_item = modify_todo_btn.closest('.project_item');
+                this.currentTodoID = project_item.dataset.id;
+                modify_todo_dialog.showModal();
+                return;
             }
         });
 
@@ -187,29 +220,45 @@ class App{
                 this.handleDeleteProject();
             }
         });
-
-
     }
+
+    fillEditTaskDialog(){
+        const project = this.PM.findProjectById(this.currentProjectID);
+        if (!project) return;
+
+        const todo = this.TM.findTodoById(project, this.currentTodoID);
+        if (!todo) return;
+
+        const task = this.TM.findTaskById(todo, this.currentTaskID);
+        if (!task) return;
+
+        const form = document.querySelector('#edit_task_dialog form');
+
+        form.elements['input_edit_task_title'].value = task.title || '';
+        form.elements['input_edit_task_duedate'].value = task.dueDate || '';
+        form.elements['input_edit_task_priority'].checked = !!task.priority;
+        form.elements['input_edit_task_check'].checked = !!task.checkList;
+    }
+
     handleMakeTask(title, dueDate, priority, checkList){
+        if (!this.currentProjectID || !this.currentTodoID) return;
+
         const task = this.TKM.makeTask(title, dueDate, priority, checkList);
         const project = this.PM.findProjectById(this.currentProjectID);
         const todo = this.TM.findTodoById(project, this.currentTodoID);
+
         this.TM.addTask(todo, task);
         this.save();
         displayProject(this.currentProjectID);
     }
 
     handleDeleteTodo(){
-        // current todo id is not null when user click to modify_todo_btn btn
-        if (!this.currentTodoID) return; 
         this.TM.deleteTodoById(this.PM.findProjectById(this.currentProjectID), this.currentTodoID);
         this.save();
         displayProject(this.currentProjectID);
     }
 
     handleRenameTodo(newName){
-        // current todo id is not null when user click to modify_todo_btn btn
-        if (!this.currentTodoID) return; 
         const todo = this.TM.findTodoById(this.PM.findProjectById(this.currentProjectID), this.currentTodoID);
         this.TM.renameTodo(todo, newName);
         this.save();
@@ -217,6 +266,7 @@ class App{
     }
 
     handleAddTodo(todoName){
+        if (!this.currentProjectID) return;
         const project = this.PM.findProjectById(this.currentProjectID);
         this.TM.addTodo(project, todoName);
         this.save();
@@ -225,6 +275,7 @@ class App{
     }
 
     handleRenameProject(newProjectName){
+        if (!this.currentProjectID) return;
         this.PM.renameProjectById(this.currentProjectID, newProjectName);
         this.save();
         renderSidebar();
@@ -240,6 +291,7 @@ class App{
     }
     
     handleDeleteProject(){
+        if (!this.currentProjectID) return;
         const ids = getData().map(item => item.id);
         const index = ids.findIndex(id => id === this.currentProjectID);
 

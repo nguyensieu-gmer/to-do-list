@@ -25,10 +25,6 @@
                 <i class="ri-task-line"></i>
                 <p id="today">today</p>
             </button>
-            <button class="sidebar_item">
-                <i class="ri-task-line"></i>
-                <p id="tomorow">tomorow</p>
-            </button>
             <div id="projects">
                 <button id="Add_project">
                     <i class="ri-add-circle-fill"></i>
@@ -122,6 +118,17 @@
             <input type="checkbox" name="input_task_check" id="input_task_check">
             <button class="form_btn" value="cancel">Cancel</button>
             <button class="form_btn" value="add">Add Task</button>
+        </form>
+    </dialog>
+    <dialog id="edit_task_dialog">
+        <form method="dialog">
+            <input type="text" name="input_edit_task_title">
+            <input type="time" name="input_edit_task_duedate">
+            <input type="checkbox" name="input_edit_task_priority">
+            <input type="checkbox" name="input_edit_task_check">
+            <button class="form_btn" value="cancel">Cancel</button>
+            <button class="form_btn" value="delete">Delete Task</button>
+            <button class="form_btn" value="Change">Change Task</button>
         </form>
     </dialog>
 </div>
