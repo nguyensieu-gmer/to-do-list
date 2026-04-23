@@ -69,6 +69,17 @@ class App{
         const modify_todo_dialog = document.getElementById('modify_todo_dialog');
         const rename_todo_dialog = document.getElementById('rename_todo_dialog');
         const delete_todo_dialog = document.getElementById('delete_todo_dialog');
+        const add_task_dialog = document.getElementById('add_task_dialog');
+
+        add_task_dialog.addEventListener('submit', e => {
+            if (e.submitter.value === 'cancel') return;
+            const title = document.getElementById('input_task_title').value;
+            const dueDate = document.getElementById('input_task_duedate').value;
+            const priority = document.getElementById('input_task_priority').checked;
+            const checkList = document.getElementById('input_task_check').checked;
+
+            this.handleMakeTask(title, dueDate, priority, checkList);
+        });
 
         delete_todo_dialog.addEventListener('close', e => {
             if (delete_todo_dialog.returnValue === 'yes'){
@@ -151,6 +162,11 @@ class App{
             const modify_project_btn = e.target.closest('.modify_project_btn');
             const modify_todo_btn = e.target.closest('.modify_todo_btn');
             const project_item = e.target.closest('.project_item');
+            const add_task = e.target.closest('.add_task');
+
+            if (add_task){
+                add_task_dialog.showModal();
+            }
 
             if (project_item){
                 this.currentTodoID = project_item.dataset.id;
@@ -174,6 +190,15 @@ class App{
 
 
     }
+    handleMakeTask(title, dueDate, priority, checkList){
+        const task = this.TKM.makeTask(title, dueDate, priority, checkList);
+        const project = this.PM.findProjectById(this.currentProjectID);
+        const todo = this.TM.findTodoById(project, this.currentTodoID);
+        this.TM.addTask(todo, task);
+        this.save();
+        displayProject(this.currentProjectID);
+    }
+
     handleDeleteTodo(){
         // current todo id is not null when user click to modify_todo_btn btn
         if (!this.currentTodoID) return; 
