@@ -78,7 +78,6 @@ class App{
         delete_task_dialog.addEventListener('close', e => {
             const value = delete_task_dialog.returnValue;
             if (value === 'yes'){
-                console.log('yes');
                 this.handleDeleteTask();
             }
         }); 
@@ -89,7 +88,6 @@ class App{
 
         edit_task_dialog.addEventListener('submit', e => {
             const form = edit_task_dialog.querySelector('form');
-            console.log(form);
 
             const title = form.elements['input_edit_task_title'].value;
             const dueDate = form.elements['input_edit_task_duedate'].value;
@@ -244,7 +242,32 @@ class App{
                 this.handleDeleteProject();
             }
         });
+
+        content.addEventListener('change', e => {
+            const checkbox = e.target.closest('.task_checked');
+            if (!checkbox) return;
+
+            const task = checkbox.closest('.task');
+            const todo = task.closest('.project_item');
+
+            this.currentTodoID = todo.dataset.id;
+            this.currentTaskID = task.dataset.id;
+
+            this.handleToggleCheckListTask(checkbox.checked);
+        });
     }
+
+    handleToggleCheckListTask(isChecked){
+        if (!this.currentProjectID || !this.currentTodoID || !this.currentTaskID) return;
+        const project = this.PM.findProjectById(this.currentProjectID);
+        const todo = this.TM.findTodoById(project, this.currentTodoID);
+        const task = this.TM.findTaskById(todo, this.currentTaskID);
+
+        task.checkList = isChecked;
+        this.save();
+        displayProject(this.currentProjectID);
+    }
+
     handleDeleteTask(){
         if (!this.currentProjectID || !this.currentTodoID || !this.currentTaskID) return;
         const project = this.PM.findProjectById(this.currentProjectID);

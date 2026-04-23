@@ -78,6 +78,7 @@ function makeTodoUl(tasks){
         const div = document.createElement('div');
         div.classList.add('first');
         const input = document.createElement('input');
+        input.classList.add('task_checked');
         input.type = 'checkbox';
         input.checked = checkList ? true : false;
         div.appendChild(input);
