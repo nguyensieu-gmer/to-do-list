@@ -73,6 +73,15 @@ class App{
         const add_task_dialog = document.getElementById('add_task_dialog');
         const edit_task_dialog = document.getElementById('edit_task_dialog');
         const edit_option_dialog = document.getElementById('edit_option_dialog');
+        const delete_task_dialog = document.getElementById('delete_task_dialog');
+
+        delete_task_dialog.addEventListener('close', e => {
+            const value = delete_task_dialog.returnValue;
+            if (value === 'yes'){
+                console.log('yes');
+                this.handleDeleteTask();
+            }
+        }); 
 
         edit_task_dialog.addEventListener('close', () => {
             edit_task_dialog.querySelector('form').reset();
@@ -98,7 +107,7 @@ class App{
                 edit_task_dialog.showModal();
             }
             else if (value === 'delete'){
-                // deletetask handle
+                delete_task_dialog.showModal();
             }
             else return;
         });
@@ -235,6 +244,15 @@ class App{
                 this.handleDeleteProject();
             }
         });
+    }
+    handleDeleteTask(){
+        if (!this.currentProjectID || !this.currentTodoID || !this.currentTaskID) return;
+        const project = this.PM.findProjectById(this.currentProjectID);
+        const todo = this.TM.findTodoById(project, this.currentTodoID);
+        this.TM.deleteTaskById(todo, this.currentTaskID);
+
+        this.save();
+        displayProject(this.currentProjectID);
     }
 
     handleEditTask(newData){
