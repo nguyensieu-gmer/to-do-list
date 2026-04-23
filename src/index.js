@@ -92,10 +92,12 @@ class App{
 
         add_task_dialog.addEventListener('submit', e => {
             if (e.submitter.value === 'cancel') return;
-            const title = document.getElementById('input_task_title').value;
-            const dueDate = document.getElementById('input_task_duedate').value;
-            const priority = document.getElementById('input_task_priority').checked;
-            const checkList = document.getElementById('input_task_check').checked;
+            const form = add_task_dialog.querySelector('form');
+
+            const title = form.elements['input_task_title'].value;
+            const dueDate = form.elements['input_task_duedate'].value;
+            const priority = form.elements['input_task_priority'].checked;
+            const checkList = form.elements['input_task_check'].checked;
 
             this.handleMakeTask(title, dueDate, priority, checkList);
         });
