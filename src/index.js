@@ -26,11 +26,12 @@ class App{
     initLocalStorage(){
         const data = JSON.parse(localStorage.getItem('todolist'));
 
-        if (data){
-            this.PM.setProject(data);
+        if (!data || data.length === 0){
+            this.addDefault();
         }
         else{
-            this.addDefault();
+            
+            this.PM.setProject(data);
         }
 
         const projects = getData();
