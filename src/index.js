@@ -210,6 +210,7 @@ class App{
                 this.currentTaskID = task.dataset.id;
 
                 this.handleTogglePriorityTask();
+                return;
             }
 
             const modify_project_btn = e.target.closest('.modify_project_btn');
