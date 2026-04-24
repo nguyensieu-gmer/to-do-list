@@ -105,6 +105,7 @@ function makeTodoUl(tasks){
         div.classList.add('third');
         const btn1 = document.createElement('button');
         btn1.classList.add('btn');
+        btn1.classList.add('priority_mark_btn');
         if (priority) btn1.classList.add('priority')
         const i1 = document.createElement('i');
         i1.classList.add('ri-poker-hearts-fill');

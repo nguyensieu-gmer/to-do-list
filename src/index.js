@@ -200,6 +200,17 @@ class App{
         });
 
         content.addEventListener('click', e => {
+            const priority_mark_btn = e.target.closest('.priority_mark_btn');
+            if (priority_mark_btn){
+                const task = priority_mark_btn.closest('.task');
+                const todo = task.closest('.project_item');
+
+                this.currentTodoID = todo.dataset.id;
+                this.currentTaskID = task.dataset.id;
+
+                this.handleTogglePriorityTask();
+            }
+
             const modify_project_btn = e.target.closest('.modify_project_btn');
             if (modify_project_btn){
                 this.currentProjectID = modify_project_btn.dataset.id;
@@ -255,6 +266,17 @@ class App{
 
             this.handleToggleCheckListTask(checkbox.checked);
         });
+    }
+
+    handleTogglePriorityTask(){
+        if (!this.currentProjectID || !this.currentTodoID || !this.currentTaskID) return;
+        const project = this.PM.findProjectById(this.currentProjectID);
+        const todo = this.TM.findTodoById(project, this.currentTodoID);
+        const task = this.TM.findTaskById(todo, this.currentTaskID);
+
+        task.priority = !task.priority;
+        this.save();
+        displayProject(this.currentProjectID);
     }
 
     handleToggleCheckListTask(isChecked){
