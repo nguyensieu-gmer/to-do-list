@@ -331,7 +331,7 @@ input[type="checkbox"]:checked::before {
 }
 
 dialog{
-  --color-accent: #29d7a8;
+  --color-accent: #def8eb;
   --color-accent-hover: #90e7db;
   padding: 1rem;
   min-width: 10rem;
@@ -376,12 +376,12 @@ dialog form[method='dialog'] label{
 }
 
 dialog form[method='dialog'] .form_btn.warning{
-  background-color: #ca1703;
+  background-color: #d67065;
   color: white;
 }
 
 dialog form[method='dialog'] .form_btn.warning:hover{
-  background-color: #9f1202;
+  background-color: #a94c41;
 }
 
 dialog form[method='dialog'] input[type='text'],
